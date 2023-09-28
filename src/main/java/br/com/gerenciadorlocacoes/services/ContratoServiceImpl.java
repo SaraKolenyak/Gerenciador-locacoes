@@ -8,6 +8,9 @@ import br.com.gerenciadorlocacoes.entities.ImovelEntity;
 import br.com.gerenciadorlocacoes.entities.LocadorEntity;
 import br.com.gerenciadorlocacoes.entities.LocatarioEntity;
 import br.com.gerenciadorlocacoes.repositories.ContratoRepository;
+import br.com.gerenciadorlocacoes.repositories.ImovelRepository;
+import br.com.gerenciadorlocacoes.repositories.LocadorRepository;
+import br.com.gerenciadorlocacoes.repositories.LocatarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +23,21 @@ public class ContratoServiceImpl implements ContratoService {
     @Autowired
     private final ContratoRepository contratoRepository;
 
-    public ContratoServiceImpl(ContratoRepository contratoRepository) {
-        this.contratoRepository = contratoRepository;
-    }
+    @Autowired
+    private final LocatarioRepository locatarioRepository;
 
+    @Autowired
+    private final LocadorRepository locadorRepository;
+
+    @Autowired
+    private final ImovelRepository imovelRepository;
+
+    public ContratoServiceImpl(ContratoRepository contratoRepository, LocatarioRepository locatarioRepository, LocadorRepository locadorRepository, ImovelRepository imovelRepository) {
+        this.contratoRepository = contratoRepository;
+        this.locatarioRepository = locatarioRepository;
+        this.locadorRepository = locadorRepository;
+        this.imovelRepository = imovelRepository;
+    }
 
     @Override
     public void criarContrato (Contrato contrato){
@@ -58,8 +72,33 @@ public class ContratoServiceImpl implements ContratoService {
     }
 
     @Override
-    public void editarContrato (Contrato contrato){
+    public void editarContrato (Long id, Contrato contrato){
 
+        LocatarioEntity locatarioEntity = new LocatarioEntity();
+        locatarioEntity.setId(contrato.getLocatario().getId());
+        locatarioEntity.setNome(contrato.getLocatario().getNome());
+        locatarioEntity.setCelular(contrato.getLocatario().getCelular());
+
+        LocadorEntity locadorEntity = new LocadorEntity();
+        locadorEntity.setId(contrato.getImovel().getLocador().getId());
+        locadorEntity.setNome(contrato.getImovel().getLocador().getNome());
+        locadorEntity.setCelular(contrato.getImovel().getLocador().getCelular());
+
+        ImovelEntity imovelEntity = new ImovelEntity();
+        imovelEntity.setId(contrato.getImovel().getId());
+        imovelEntity.setApelido(contrato.getImovel().getApelido());
+        imovelEntity.setEndereco(contrato.getImovel().getEndereco());
+        imovelEntity.setLocador(locadorEntity);
+
+        ContratoEntity contratoEntity = contratoRepository.findById(id).get();
+        contratoEntity.setDtContrato(contrato.getDtContrato());
+        contratoEntity.setDiaVencimento(contrato.getDiaVencimento());
+        contratoEntity.setPrazo(contrato.getDiaVencimento());
+        contratoEntity.setValorAluguel(contrato.getValorAluguel());
+        contratoEntity.setLocatario(locatarioEntity);
+        contratoEntity.setImovel(imovelEntity);
+
+        contratoRepository.save(contratoEntity);
     }
 
     @Override

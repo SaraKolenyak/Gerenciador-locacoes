@@ -23,9 +23,9 @@ public class ImovelController {
         imovelService.criarImovel(imovel);
     }
 
-    @PutMapping
-    public void editarImovel(Imovel imovel){
-        imovelService.editarImovel(imovel);
+    @PutMapping ("/{id}")
+    public void editarImovel(@PathVariable("id") Long id, @RequestBody Imovel imovel){
+        imovelService.editarImovel(id,imovel);
     }
 
     @DeleteMapping ("/{id}")

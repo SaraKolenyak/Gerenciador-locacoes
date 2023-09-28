@@ -34,7 +34,15 @@ public class LocatarioServiceImpl implements LocatarioService {
     }
 
     @Override
-    public void editarLocatario (Locatario locatario){}
+    public void editarLocatario (Long id, Locatario locatario){
+
+        LocatarioEntity locatarioEntity = locatarioRepository.findById(id).get();
+
+        locatarioEntity.setNome(locatario.getNome());
+        locatarioEntity.setCelular(locatario.getCelular());
+
+        locatarioRepository.save(locatarioEntity);
+    }
 
     @Override
     public void removerLocatario (Long id){

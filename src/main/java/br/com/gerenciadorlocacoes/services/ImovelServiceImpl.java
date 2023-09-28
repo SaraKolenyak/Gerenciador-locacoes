@@ -45,8 +45,20 @@ public class ImovelServiceImpl implements ImovelService {
     }
 
     @Override
-    public void editarImovel(Imovel imovel) {
+    public void editarImovel(Long id, Imovel imovel) {
 
+        ImovelEntity imovelEntity = imovelRepository.findById(id).get();
+
+        LocadorEntity locadorEntity = new LocadorEntity();
+        locadorEntity.setId(imovel.getLocador().getId());
+        locadorEntity.setNome(imovel.getLocador().getNome());
+        locadorEntity.setCelular(imovel.getLocador().getCelular());
+
+        imovelEntity.setApelido(imovel.getApelido());
+        imovelEntity.setEndereco(imovel.getEndereco());
+        imovelEntity.setLocador(locadorEntity);
+
+        imovelRepository.save(imovelEntity);
     }
 
     @Override

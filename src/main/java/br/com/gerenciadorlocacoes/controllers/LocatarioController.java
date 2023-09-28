@@ -22,9 +22,9 @@ public class LocatarioController {
         locatarioService.criarLocatario(locatario);
     }
 
-    @PutMapping
-    public void editarLocatario (Locatario locatario){
-        locatarioService.editarLocatario(locatario);
+    @PutMapping ("/{id}")
+    public void editarLocatario (@PathVariable("id") Long id, @RequestBody Locatario locatario){
+        locatarioService.editarLocatario(id,locatario);
     }
 
     @DeleteMapping ("/{id}")

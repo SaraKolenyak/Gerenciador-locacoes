@@ -6,7 +6,7 @@ import java.util.List;
 public interface LocatarioService {
 
     void criarLocatario (Locatario locatario);
-    void editarLocatario (Locatario locatario);
+    void editarLocatario (Long id, Locatario locatario);
     void removerLocatario (Long id);
     List<Locatario> listarLocatarios();
     Locatario listarLocatario(long id);

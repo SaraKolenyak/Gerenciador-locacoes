@@ -32,7 +32,16 @@ public class LocadorServiceImpl implements LocadorService {
     }
 
     @Override
-    public void editarLocador (Locador locador){}
+    public void editarLocador(Long id, Locador locador){
+
+        LocadorEntity locadorEntity = locadorRepository.findById(id).get();
+
+        locadorEntity.setNome(locador.getNome());
+        locadorEntity.setCelular(locador.getCelular());
+
+        locadorRepository.save(locadorEntity);
+
+    }
 
     @Override
     public void removerLocador (Long id){

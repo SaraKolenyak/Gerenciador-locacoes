@@ -6,7 +6,7 @@ import br.com.gerenciadorlocacoes.domains.Contrato;
 public interface ContratoService {
 
     void criarContrato (Contrato contrato);
-    void editarContrato (Contrato contrato);
+    void editarContrato (Long id, Contrato contrato);
     void removerContrato (Long id);
     List<Contrato> listarContratos();
     Contrato listarContrato(long id);

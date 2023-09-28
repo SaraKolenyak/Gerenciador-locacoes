@@ -23,9 +23,10 @@ public class LocadorController {
         locadorService.criarLocador(locador);
     }
 
-    @PutMapping
-    public void editarLocador (Locador locador){
-        locadorService.editarLocador(locador);
+    @PutMapping ("/{id}")
+    public void editarLocador (@PathVariable("id") Long id, @RequestBody Locador locador){
+        locadorService.editarLocador(id,locador);
+
     }
 
     @DeleteMapping ("/{id}")

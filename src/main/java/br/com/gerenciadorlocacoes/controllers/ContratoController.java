@@ -24,9 +24,9 @@ public class ContratoController {
     }
 
     //Métodos idepotentes
-    @PutMapping
-    public void editarContrato (Contrato contrato){
-        contratoService.editarContrato(contrato);
+    @PutMapping ("/{id}")
+    public void editarContrato (@PathVariable Long id, @RequestBody Contrato contrato){
+        contratoService.editarContrato(id,contrato);
     }
 
     @DeleteMapping ("/{id}")
